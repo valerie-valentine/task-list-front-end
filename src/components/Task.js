@@ -18,7 +18,7 @@ const Task = ({id, title, isComplete, onUpdateTask }) => {
   
   return (
     <li className="tasks__item">
-      <button className={`tasks__item__toggle ${buttonClass}`}>{props.title}</button>
+      <button className={buttonColor} onClick={onClickButton}>{title}</button>
       <button className="tasks__item__remove button">x</button>
     </li>
   );
