@@ -5,16 +5,15 @@ import './TaskList.css';
 
 const TaskList = ({ tasksData, onUpdateTask }) => {
   const taskComponents = tasksData.map((task) => {
+    console.log(task.id);
     return (
-      <li key={task.id}>
         <Task
           key={task.id}
           id={task.id}
           title={task.title}
           isComplete={task.isComplete}
-          onUpdate={onUpdateTask}
+          onUpdateTask={onUpdateTask}
         />
-      </li>
     );
   });
   return <ul className="tasks__list no-bullet">{taskComponents}</ul>;

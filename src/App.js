@@ -17,13 +17,13 @@ const App = () => {
     },
   ]);
 
-  const updateTask = taskToUpdate => {
-    const tasks = tasksData.map(task => {
+  const updateTask = (taskToUpdate) => {
+    const tasks = tasksData.map((task) => {
       if (task.id === taskToUpdate.id) {
         return taskToUpdate;
-      } else {
-        return task;
       }
+
+      return task;
     });
 
     setTask(tasks);

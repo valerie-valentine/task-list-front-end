@@ -5,7 +5,7 @@ import './Task.css';
 const Task = ({id, title, isComplete, onUpdateTask }) => {
 
   const onClickButton = () => {
-    onUpdateTask ({
+    onUpdateTask({
         id: id,
         title: title,
         isComplete: !isComplete
@@ -14,11 +14,11 @@ const Task = ({id, title, isComplete, onUpdateTask }) => {
     // Invoke the function passed in through the prop named "onUpdate"
     // This function is referenced by the name "updateStudentData" in App
 
-  const buttonColor = isComplete ? 'tasks__item__toggle--completed' : '';
+  const buttonClass = isComplete ? 'tasks__item__toggle--completed' : '';
   
   return (
     <li className="tasks__item">
-      <button className={buttonColor} onClick={onClickButton}>{title}</button>
+      <button onClick={onClickButton} className={`tasks__item__toggle ${buttonClass}`}>{title}</button>
       <button className="tasks__item__remove button">x</button>
     </li>
   );
