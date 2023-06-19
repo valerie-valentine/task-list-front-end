@@ -4,7 +4,7 @@ import './App.css';
 import { useState } from 'react';
 
 const App = () => {
-  const [TASKS, setTASK] = useState([
+  const [tasksData, setTask] = useState([
     {
       id: 1,
       title: 'Mow the lawn',
@@ -17,16 +17,16 @@ const App = () => {
     },
   ]);
 
-  const updateTASK = updatedTask => {
-    const tasks = TASKS.map(task => {
-      if (task.id === updatedTask.id) {
-        return updatedTask;
+  const updateTask = taskToUpdate => {
+    const tasks = tasksData.map(task => {
+      if (task.id === taskToUpdate.id) {
+        return taskToUpdate;
       } else {
         return task;
       }
     });
 
-    setTASK(tasks);
+    setTask(tasks);
   };
 
   return (
@@ -36,8 +36,8 @@ const App = () => {
       </header>
       <main>
         <div><TaskList 
-        tasks={TASKS} 
-        onUpdateTask={updateTASK}
+        tasksData={tasksData} 
+        onUpdateTask={updateTask}
         /></div>
       </main>
     </div>
