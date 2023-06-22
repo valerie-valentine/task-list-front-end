@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import Task from './Task';
 import './TaskList.css';
 
-const TaskList = ({ tasksData, onUpdateTask }) => {
+const TaskList = ({ tasksData, onUpdateTask, onUnregisterTask  }) => {
   const taskComponents = tasksData.map((task) => {
-    console.log(task.id);
     return (
         <Task
           key={task.id}
@@ -13,6 +12,7 @@ const TaskList = ({ tasksData, onUpdateTask }) => {
           title={task.title}
           isComplete={task.isComplete}
           onUpdateTask={onUpdateTask}
+          onUnregisterTask={onUnregisterTask}
         />
     );
   });
@@ -44,7 +44,8 @@ TaskList.propTypes = {
       isComplete: PropTypes.bool.isRequired,
     })
   ).isRequired,
-  onUpdateTask: PropTypes.func.isRequired
+  onUpdateTask: PropTypes.func.isRequired,
+  onUnregisterTask: PropTypes.func.isRequired,
 };
 
 export default TaskList;

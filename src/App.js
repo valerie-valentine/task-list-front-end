@@ -1,32 +1,101 @@
 import React from 'react';
 import TaskList from './components/TaskList.js';
 import './App.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+
+const kBaseUrl = "http://localhost:5000";
+
+const getAllTasks = () => {
+  return axios
+    .get(`${kBaseUrl}/tasks`)
+    .then((response) => {
+      return response.data.map(convertFromApi);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+// eslint-disable-next-line camelcase
+const updateTaskApi = (id, isComplete) => {
+  // eslint-disable-next-line camelcase
+  const endpoint = isComplete ? 'mark_complete' : 'mark_incomplete';
+
+  return axios
+    .patch(`${kBaseUrl}/tasks/${id}/${endpoint}`)
+    .then((response) => {
+      return convertFromApi(response.data.task);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+const deleteTaskApi = (id) => {
+  return axios
+    .delete(`${kBaseUrl}/tasks/${id}`)
+    .then((response) => {
+      return response.data.details;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+const convertFromApi = (apiTask) => {
+  const {is_complete: isComplete, ...task} = apiTask;
+  const newTask = {isComplete, ...task};
+  return newTask;
+};
 
 const App = () => {
-  const [tasksData, setTask] = useState([
-    {
-      id: 1,
-      title: 'Mow the lawn',
-      isComplete: false,
-    },
-    {
-      id: 2,
-      title: 'Cook Pasta',
-      isComplete: true,
-    },
-  ]);
 
-  const updateTask = (taskToUpdate) => {
-    const tasks = tasksData.map((task) => {
-      if (task.id === taskToUpdate.id) {
-        return taskToUpdate;
-      }
+  const [tasksData, setTask] = useState([]);
 
-      return task;
+  const fetchTasks = () => {
+    getAllTasks()
+    .then((tasks) => {
+      setTask(tasks);
     });
+  };
 
-    setTask(tasks);
+  useEffect(() => {
+    fetchTasks();
+  }, []);
+
+  // const updateTask = (taskToUpdate) => {
+  //   const tasks = tasksData.map((task) => {
+  //     if (task.id === taskToUpdate.id) {
+  //       return taskToUpdate;
+  //     }
+
+  //     return task;
+  //   });
+
+  //   setTask(tasks);
+  // };
+
+  const updateTask = (id, isComplete) => {
+    updateTaskApi(id, isComplete).then((updatedTask) => {
+      setTask((oldData) => {
+        return oldData.map((task) => {
+          if (task.id === id) {
+            return updatedTask;
+          }
+          return task;
+          });
+        });
+      });
+    };
+
+  const onUnregisterTask = (id) => {
+    deleteTaskApi(id)
+    .then((deletedTask) => {
+      setTask(tasksData.filter((task) => {
+        return task.id !== deletedTask;
+    }));
+   });
   };
 
   return (
@@ -38,10 +107,12 @@ const App = () => {
         <div><TaskList 
         tasksData={tasksData} 
         onUpdateTask={updateTask}
+        onUnregisterTask={onUnregisterTask}
         /></div>
       </main>
     </div>
   );
-};
+  };
 
 export default App;
+
