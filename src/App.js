@@ -64,17 +64,6 @@ const App = () => {
     fetchTasks();
   }, []);
 
-  // const updateTask = (taskToUpdate) => {
-  //   const tasks = tasksData.map((task) => {
-  //     if (task.id === taskToUpdate.id) {
-  //       return taskToUpdate;
-  //     }
-
-  //     return task;
-  //   });
-
-  //   setTask(tasks);
-  // };
 
   const updateTask = (id, isComplete) => {
     updateTaskApi(id, isComplete).then((updatedTask) => {
