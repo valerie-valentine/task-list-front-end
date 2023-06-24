@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './Task.css';
 
-const Task = ({ id, title, isComplete, onUpdateTask, onUnregisterTask}) => {
+const Task = ({ id, title, isComplete, onClickCallback, onDeleteCallback}) => {
 
   // const onClickButton = () => {
   //   onUpdateTask({
@@ -13,11 +13,11 @@ const Task = ({ id, title, isComplete, onUpdateTask, onUnregisterTask}) => {
   // };
 
   const updateTaskWithId = () => {
-    onUpdateTask(id, !isComplete);
+    onClickCallback(id, !isComplete);
   };
 
   const onClickRemove = () => {
-    onUnregisterTask(id);
+    onDeleteCallback(id);
   };
 
 
@@ -38,8 +38,8 @@ Task.propTypes = {
   id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   isComplete: PropTypes.bool.isRequired,
-  onUpdateTask: PropTypes.func.isRequired,
-  onUnregisterTask: PropTypes.func.isRequired
+  onClickCallback: PropTypes.func.isRequired,
+  onDeleteCallback: PropTypes.func.isRequired
 };
 
 export default Task;

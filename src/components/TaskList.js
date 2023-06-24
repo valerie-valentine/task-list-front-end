@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Task from './Task';
 import './TaskList.css';
 
-const TaskList = ({ tasksData, onUpdateTask, onUnregisterTask  }) => {
+const TaskList = ({ tasksData, onClickCallback, onDeleteCallback  }) => {
   const taskComponents = tasksData.map((task) => {
     return (
         <Task
@@ -11,8 +11,8 @@ const TaskList = ({ tasksData, onUpdateTask, onUnregisterTask  }) => {
           id={task.id}
           title={task.title}
           isComplete={task.isComplete}
-          onUpdateTask={onUpdateTask}
-          onUnregisterTask={onUnregisterTask}
+          onClickCallback={onClickCallback}
+          onDeleteCallback={onDeleteCallback}
         />
     );
   });
@@ -44,8 +44,8 @@ TaskList.propTypes = {
       isComplete: PropTypes.bool.isRequired,
     })
   ).isRequired,
-  onUpdateTask: PropTypes.func.isRequired,
-  onUnregisterTask: PropTypes.func.isRequired,
+  onClickCallback: PropTypes.func.isRequired,
+  onDeleteCallback: PropTypes.func.isRequired,
 };
 
 export default TaskList;

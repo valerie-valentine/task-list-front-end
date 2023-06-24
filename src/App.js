@@ -65,7 +65,7 @@ const App = () => {
   }, []);
 
 
-  const updateTask = (id, isComplete) => {
+  const clickCallback = (id, isComplete) => {
     updateTaskApi(id, isComplete).then((updatedTask) => {
       setTask((oldData) => {
         return oldData.map((task) => {
@@ -78,7 +78,7 @@ const App = () => {
       });
     };
 
-  const onUnregisterTask = (id) => {
+  const deleteCallback = (id) => {
     deleteTaskApi(id)
     .then((deletedTask) => {
       setTask(tasksData.filter((task) => {
@@ -95,8 +95,8 @@ const App = () => {
       <main>
         <div><TaskList 
         tasksData={tasksData} 
-        onUpdateTask={updateTask}
-        onUnregisterTask={onUnregisterTask}
+        onClickCallback={clickCallback}
+        onDeleteCallback={deleteCallback}
         /></div>
       </main>
     </div>
