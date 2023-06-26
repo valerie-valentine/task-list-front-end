@@ -4,7 +4,7 @@ import './App.css';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const kBaseUrl = "http://localhost:5000";
+const kBaseUrl = 'https://task-list-api-c17.onrender.com/';
 
 const getAllTasks = () => {
   return axios
@@ -84,7 +84,7 @@ const App = () => {
       setTask(tasksData.filter((task) => {
         return task.id !== deletedTask;
     }));
-   });
+  });
   };
 
   return (
